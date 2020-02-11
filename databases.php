@@ -33,6 +33,19 @@
     //     reg_date TIMESTAMP
     // )";
 
+    $sql = "CREATE TABLE LostItems(
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        item_name VARCHAR(30) NOT NULL,
+        img_name VARCHAR(30) NOT NULL,
+        reg_date TIMESTAMP
+    )";
+
+    if($conn->query($sql) === TRUE ){
+        echo "New table 'Items' created successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error ;
+    }
+
     // insert into database
     // $sql = "INSERT INTO MyGuests(firstname, lastname, email)
     // VALUES ('Johnny', 'Simple', 'jsimple@gmail.com')";
@@ -62,21 +75,21 @@
 
     // $stmt->close();
 
-    $sql = "SELECT id, firstname, lastname FROM MyGuests";
-    $results = $conn->query($sql);
-    if($results->num_rows > 0) {
-        while($row = $results->fetch_assoc()) {
-            echo "id: " . $row["id"] . " Name: " . $row["firstname"] . " " . $row["lastname"] . "<br>";
-        }
-    } else {
-        echo "0 results";
-    }
+    // $sql = "SELECT id, firstname, lastname FROM MyGuests";
+    // $results = $conn->query($sql);
+    // if($results->num_rows > 0) {
+    //     while($row = $results->fetch_assoc()) {
+    //         echo "id: " . $row["id"] . " Name: " . $row["firstname"] . " " . $row["lastname"] . "<br>";
+    //     }
+    // } else {
+    //     echo "0 results";
+    // }
 
     // deleting data
     // $delData = "DELETE FROM MyGuests WHERE id=2";
     // $conn->query($delData);
 
-    $conn->close();
+    // $conn->close();
 
 ?>
 

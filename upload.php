@@ -1,5 +1,18 @@
 <?php
 
+
+// connecting to database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "myDB";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if($conn->connect_error) {
+    die("connection failed:" . $conn->connect_error);
+}
+
+
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -55,14 +68,33 @@ if(isset($_POST["submit"])){
         }
     }
 
-    $itemFile = fopen("itemNames.txt", 'a');
+    // $itemFile = fopen("itemNames.txt", 'a');
     
-    $imageFile = fopen("imageNames.txt", 'a');
+    // $imageFile = fopen("imageNames.txt", 'a');
     $imgName = $_FILES["fileToUpload"]["name"]."\n";
-    fwrite($itemFile, $name);
-    fwrite($imageFile, $imgName);
-    fclose($itemFile);
-    fclose($imageFile);
+    // fwrite($itemFile, $name);
+    // fwrite($imageFile, $imgName);
+    // fclose($itemFile);
+    // fclose($imageFile);
+
+    
+    // $sql = "INSERT INTO LostItems(item_name, img_name)
+    //     VALUES ($name, $imgName)";
+
+    // if($conn->query($sql) === TRUE) {
+    //     echo "Item added to record successfully!, great work!!";
+    // } else {
+    //     echo "Lela awu!!!:" . $conn->error;
+    // }
+
+    // preparing and binding
+    $stmt = $conn->prepare("INSERT INTO LostItems(item_name, img_name) VALUES (?,?)");
+    $stmt->bind_param("ss", $itemName, $imageName);
+
+     // set parameters and execute
+    $itemName = $name;
+    $imageName = $imgName;
+    $stmt->execute();
 
 }
 
